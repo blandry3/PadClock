@@ -1,0 +1,6 @@
+[submodule "theos"]
+	path = theos
+	url = git@github.com:DHowett/theos.git
+[submodule "padclockprefs/theos"]
+	path = padclockprefs/theos
+	url = git@github.com:DHowett/theos.git
