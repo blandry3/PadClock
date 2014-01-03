@@ -1,0 +1,10 @@
+{
+    entry = {
+	bundle = PadClockPrefs;
+	cell = PSLinkCell;
+	detail = PadClockPrefsListController;
+	icon = PadClockPrefs.png;
+	isController = 1;
+	label = PadClock;
+    };
+}

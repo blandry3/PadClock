@@ -1,0 +1,9 @@
+Package: com.expetelek.padclock
+Name: PadClock
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: A tweak that replaces the original date picker with a number pad in the Clock app.
+Maintainer: Stevie Hetelekides
+Author: Stevie Hetelekides
+Section: Tweaks
