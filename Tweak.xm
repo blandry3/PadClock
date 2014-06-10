@@ -48,7 +48,6 @@
 
 	%hook EditAlarmViewController
 	static char numberInputHolder, segmentedControlHolder;
-	static int origRowsInSection;
 	static BOOL prefers12HourTime;
 
 	- (void)viewDidAppear:(BOOL)animated
@@ -62,7 +61,7 @@
 
 	- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 	{
-		if (indexPath.row == 0)
+		if (indexPath.row == 0 && indexPath.section == 0)
 		{
 			// make sure it hasn't already been created
 			static NSString *CellIdentifier = @"NumberPadCell";
@@ -118,24 +117,38 @@
 			
 			return cell;
 		}
-		else
-		{
-			indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
+		if(indexPath.section == 0)
+        {
+            indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:0];
 			return %orig(tableView, indexPath);
 		}
+        else
+        {
+            return %orig;
+        }
 	}
 
 	- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 	{
-		origRowsInSection = %orig;
-		return origRowsInSection + 1;
+        if(section == 0)
+        {
+            return %orig + 1;
+        }
+		return %orig;
 	}
 
 	- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 	{
-		if (indexPath.row > 0)
-			indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
-		%orig(tableView, indexPath);
+        if(indexPath.section == 0 && indexPath.row > 0)
+        {
+            indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
+            %orig(tableView, indexPath);
+        }
+        else
+        {
+            %orig;
+        }
+		
 	}
 
 	- (void)_doneButtonClicked:(UIBarButtonItem *)barButtonItem
